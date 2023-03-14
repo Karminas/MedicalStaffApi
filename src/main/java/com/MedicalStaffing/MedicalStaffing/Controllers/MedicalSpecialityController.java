@@ -3,7 +3,6 @@ package com.MedicalStaffing.MedicalStaffing.Controllers;
 import com.MedicalStaffing.MedicalStaffing.Entities.MedicalSpeciality;
 import com.MedicalStaffing.MedicalStaffing.Services.MedicalSpecialityService;
 import jakarta.validation.Valid;
-import org.apache.catalina.valves.rewrite.ResolverImpl;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.HttpStatus;
@@ -47,9 +46,7 @@ public class MedicalSpecialityController {
         MedicalSpeciality foundMedicalSpeciality = medicalSpecialityService.getMedicalSpecialityById(id);
 
         if (foundMedicalSpeciality!=null) {
-            foundMedicalSpeciality.add(linkTo(methodOn(MedicalSpecialityController.class).getMedicalSpecialityById(foundMedicalSpeciality.getId())).withSelfRel());
-            foundMedicalSpeciality.add(linkTo(methodOn(MedicalSpecialityController.class).getAllMedicalSpecialities()).withRel(IanaLinkRelations.COLLECTION));
-            return new ResponseEntity<>(foundMedicalSpeciality, HttpStatus.OK);
+            return new ResponseEntity<>(createRepresentationModel(foundMedicalSpeciality), HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -91,5 +88,11 @@ public class MedicalSpecialityController {
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    private MedicalSpeciality createRepresentationModel (MedicalSpeciality medicalSpeciality) {
+        medicalSpeciality.add(linkTo(methodOn(MedicalSpecialityController.class).getMedicalSpecialityById(medicalSpeciality.getId())).withSelfRel());
+        medicalSpeciality.add(linkTo(methodOn(MedicalSpecialityController.class).getAllMedicalSpecialities()).withRel(IanaLinkRelations.COLLECTION));
+        return medicalSpeciality;
     }
 }

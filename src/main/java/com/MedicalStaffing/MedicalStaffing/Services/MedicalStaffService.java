@@ -1,7 +1,7 @@
 package com.MedicalStaffing.MedicalStaffing.Services;
 
 import com.MedicalStaffing.MedicalStaffing.Entities.MedicalStaff;
-import com.MedicalStaffing.MedicalStaffing.Exceptions.ClientNotFoundException;
+import com.MedicalStaffing.MedicalStaffing.Exceptions.MedicalStaffNotFoundException;
 import com.MedicalStaffing.MedicalStaffing.Repositories.MedicalStaffRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class MedicalStaffService {
     }
 
     public MedicalStaff findMedicalStaffById (Long id) {
-        return medicalStaffRepository.findById(id).orElseThrow(()-> new ClientNotFoundException(id));
+        return medicalStaffRepository.findById(id).orElseThrow(()-> new MedicalStaffNotFoundException(id));
     }
 
     public MedicalStaff addNewMedicalStaffMember (MedicalStaff newMedicalStaff) {

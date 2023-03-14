@@ -1,5 +1,6 @@
 package com.MedicalStaffing.MedicalStaffing.Controllers;
 
+import com.MedicalStaffing.MedicalStaffing.Entities.MedicalSpeciality;
 import com.MedicalStaffing.MedicalStaffing.Entities.MedicalStaff;
 import com.MedicalStaffing.MedicalStaffing.Services.MedicalStaffService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,6 +39,11 @@ public class MedicalStaffController {
         if (!allMedicalStaff.isEmpty()) {
             for (MedicalStaff medicalStaff : allMedicalStaff) {
                 medicalStaff.add(linkTo(methodOn(MedicalStaffController.class).getMedicalStaffById(medicalStaff.getId())).withSelfRel());
+
+                for (MedicalSpeciality speciality:medicalStaff.getSpecialityList()) {
+                    speciality.add(linkTo(methodOn(MedicalSpecialityController.class).getMedicalSpecialityById(speciality.getId())).withSelfRel());
+                    speciality.add(linkTo(methodOn(MedicalSpecialityController.class).getAllMedicalSpecialities()).withRel(IanaLinkRelations.COLLECTION));
+                }
             }
 
             CollectionModel<MedicalStaff> collection = CollectionModel.of(allMedicalStaff);
