@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 
 @Entity
