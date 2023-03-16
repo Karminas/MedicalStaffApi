@@ -32,12 +32,12 @@ public class MedicalStaffService {
         return savedMedicalStaff;
     }
 
-    public Long updateMedicalStaffById (Long id, MedicalStaff update_medicalStaff) {
+    public MedicalStaff updateMedicalStaffById (Long id, MedicalStaff update_medicalStaff) {
         MedicalStaff foundMedicalStaff = medicalStaffRepository.findById(id).orElseThrow(()-> new RuntimeException("This medical staff does not exists."));
         foundMedicalStaff.setName(update_medicalStaff.getName());
         foundMedicalStaff.setLastName(update_medicalStaff.getLastName());
         medicalStaffRepository.save(foundMedicalStaff);
-        return foundMedicalStaff.getId();
+        return foundMedicalStaff;
     }
 
     public void deleteMedicalStaffById(Long id) {
